@@ -8,11 +8,13 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.net.toUri
-
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import juniojsv.mtk.easy.su.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,10 +29,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var preferences: SharedPreferences
     private lateinit var github: GithubRepository
     private lateinit var binding: ActivityMainBinding
-
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         if (Build.VERSION.SECURITY_PATCH.replace("-", "")
                 .toInt() >= 20200301 && !preferences.getBoolean(PREF_SECURITY_PATCH_IGNORED, false)
         ) {
-            AlertDialog.Builder(this).run {
+            MaterialAlertDialogBuilder(this).run {
                 setTitle(R.string.warning_word)
                 setMessage(R.string.security_patch_warning)
                 setPositiveButton(getText(R.string.ignore)) { _, _ ->
@@ -61,8 +63,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 create().apply { setCanceledOnTouchOutside(false) }
             }.show()
         }
-
-
 
         launch {
             val update = getLatestUpdateAvailable()
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         }
 
         if (!preferences.getBoolean(PREF_STARTUP_WARNING, false))
-            AlertDialog.Builder(this).run {
+            MaterialAlertDialogBuilder(this).run {
                 setTitle(getString(R.string.warning_word))
                 setMessage(getString(R.string.startup_warning))
                 setPositiveButton(getString(R.string.accept)) { _, _ ->
@@ -120,19 +120,31 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             })
         }
 
-        binding.mButtonXda.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = getString(R.string.xda_url).toUri()
-            })
+        binding.mButtonBilibili.setOnClickListener {
+            val imageView = ImageView(this)
+            imageView.setImageResource(R.mipmap.qrcode_kocleo)
+            imageView.scaleType = ImageView.ScaleType.FIT_CENTER
+            imageView.adjustViewBounds = true
+            imageView.setPadding(32, 32, 32, 32)
+            MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.titleResId)
+                .setView(imageView)
+                .setNegativeButton("Go",{ dialog, which ->
+                    startActivity(Intent(Intent.ACTION_VIEW).apply {
+                        data = getString(R.string.bilibili_url).toUri()
+                    })
+                })
+                .setPositiveButton("Close", { dialog, which -> dialog.dismiss() })
+                .show()
         }
 
         binding.mButtonTryRoot.setOnClickListener { button ->
-            binding.mButtonTryRoot.isEnabled = false
-            binding.mLog.text = ""
+            getString(R.string.please_wait).toast(this, false)
+            button.isEnabled = false
             ExploitHandler(this) { result ->
                 binding.mLog.text = result.log
                 binding.mButtonCopy.isEnabled = true
-                binding.mButtonTryRoot.isEnabled = true
+                button.isEnabled = true
                 if (result.isSuccessful)
                     getString(R.string.success).toast(this, true)
                 else
@@ -158,7 +170,5 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             null
         }
     }
-
-
 
 }

@@ -21,8 +21,8 @@
     <string name="github_api_entry" translatable="false">https://api.github.com/</string>
     <string name="xda_url" translatable="false">https://forum.xda-developers.com/android/development/amazing-temp-root-mediatek-armv8-t3922213/post82081703#post82081703</string>
     <string name="version">Version</string>
-    <string name="success">Superuser permission granted, use Magisk Manager to manage</string>
-    <string name="fail">Fail, try again</string>
+    <string name="success">Superuser permission granted, use Magisk Manager to manage :)</string>
+    <string name="fail">"Failed, retrying won't help - not supported :( "</string>
     <string name="accept">Accept</string>
     <string name="about_word">About</string>
     <string name="credits">Credits</string>
@@ -46,4 +46,10 @@
     <string name="ignore">Ignore</string>
     <string name="terminal">Terminal</string>
     <string name="auto_send_logs">Accept submission of execution logs</string>
+    <string name="boot_run" >Run on Boot</string>
+    <string name="kocleo" translatable="false">KoCleo</string>
+    <string name="kocleo_about">Refactor MD UI, add features</string>
+    <string name="bilibili" translatable="false">BiliBili</string>
+    <string name="titleResId">My BiliBili Space</string>
+    <string name="bilibili_url" translatable="false">https://b23.tv/9mAd3lU</string>
 </resources>
