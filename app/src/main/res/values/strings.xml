@@ -52,4 +52,5 @@
     <string name="bilibili" translatable="false">BiliBili</string>
     <string name="titleResId">My BiliBili Space</string>
     <string name="bilibili_url" translatable="false">https://b23.tv/9mAd3lU</string>
+    <string name="fail_2">Still not working? Your device isn\'t supported :(</string>
 </resources>

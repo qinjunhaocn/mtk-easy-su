@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.net.toUri
@@ -24,6 +23,9 @@ import retrofit2.Retrofit
 import retrofit2.await
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.CoroutineContext
+
+// 跟踪ExploitHandler是否正在运行
+var isExploitRunning = false
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var preferences: SharedPreferences
@@ -100,6 +102,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 }
             }
         }
+        binding.mBootRun.apply {
+            isChecked = preferences.getBoolean(PREF_BOOT_RUN, false)
+            setOnCheckedChangeListener { _, isChecked ->
+                preferences.edit(true) {
+                    putBoolean(PREF_BOOT_RUN, isChecked)
+                }
+            }
+        }
 
         binding.mVersion.text =
             String.format(
@@ -121,14 +131,23 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         }
 
         binding.mButtonBilibili.setOnClickListener {
+            val container = android.widget.FrameLayout(this)
             val imageView = ImageView(this)
             imageView.setImageResource(R.mipmap.qrcode_kocleo)
             imageView.scaleType = ImageView.ScaleType.FIT_CENTER
-            imageView.adjustViewBounds = true
-            imageView.setPadding(32, 32, 32, 32)
+
+            val dpSize = 170
+            val pxSize = (dpSize * resources.displayMetrics.density).toInt()
+            val layoutParams = android.widget.FrameLayout.LayoutParams(pxSize, pxSize)
+            layoutParams.gravity = android.view.Gravity.CENTER
+            imageView.layoutParams = layoutParams
+
+            container.addView(imageView)
+            container.setPadding(32, 32, 32, 0)
+            
             MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.titleResId)
-                .setView(imageView)
+                .setView(container)
                 .setNegativeButton("Go",{ dialog, which ->
                     startActivity(Intent(Intent.ACTION_VIEW).apply {
                         data = getString(R.string.bilibili_url).toUri()
@@ -138,17 +157,24 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 .show()
         }
 
+        // 这里检查ExploitHandler是否正在运行，如果是则禁用按钮
+        binding.mButtonTryRoot.isEnabled = !isExploitRunning
+        
         binding.mButtonTryRoot.setOnClickListener { button ->
-            getString(R.string.please_wait).toast(this, false)
             button.isEnabled = false
+            isExploitRunning = true
             ExploitHandler(this) { result ->
                 binding.mLog.text = result.log
                 binding.mButtonCopy.isEnabled = true
                 button.isEnabled = true
-                if (result.isSuccessful)
+                isExploitRunning = false
+                if (result.isSuccessful) {
                     getString(R.string.success).toast(this, true)
-                else
-                    getString(R.string.fail).toast(this, false)
+                }
+                else {
+                    getString(R.string.fail).toast(this, true)
+                    getString(R.string.fail_2).toast(this, true)
+                }
             }.execute()
         }
 

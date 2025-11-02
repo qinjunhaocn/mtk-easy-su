@@ -377,24 +377,11 @@
 
                 </LinearLayout>
 
-
             </com.google.android.material.card.MaterialCardView>
-
-
-
-
-
-
-
-
-
-
-
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- 右下角的 MaterialYou # 按钮 -->
     <!-- 右下角的 MaterialYou # 按钮 -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mButtonTryRoot"
@@ -402,7 +389,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="24dp"
-        android:contentDescription="尝试获取Root权限"
+        android:contentDescription="Try Root"
         android:src="@drawable/ic_launcher_foreground"
         app:backgroundTint="?attr/colorPrimary"
         app:maxImageSize="58dp"

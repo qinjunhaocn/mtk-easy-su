@@ -2,22 +2,19 @@
 <resources>
     <string name="app_name">MTK Easy SU</string>
     <string name="about">
-        本应用帮助您在兼容设备上使用mtk-su启动Magisk，
-        包括已锁定引导加载程序的设备！完全在数据分区运行：无需修改固件。
-        任何需要ROOT权限的应用都可以使用。但要管理每个应用的ROOT权限，您需要下载Magisk Manager。
+        本应用可帮助您在兼容设备上使用mtk-su启动Magisk，包括已锁定引导加载程序的设备！完全在数据分区运行：无需修改固件。任何需要ROOT权限的应用都可以使用。但要管理每个应用的ROOT权限，您需要下载Magisk Manager(默认咱也会帮你装)。
     </string>
     <string name="startup_warning">
-        超级用户权限可能严重损坏您的设备，您将对设备负全部责任。
+        超级用户权限可能严重损坏您的设备，您将对设备负全部责任。\n如果你不确保本设备分区校验未启用请不要尝试修补/更新面具和操作系统分区！
     </string>
     <string name="warning">
-        请勿在锁定引导加载程序的设备上通过Magisk Manager更新Magisk，否则会变砖。
-        此外，我不对设备的任何损坏负责。
+        请勿在锁定引导加载程序的设备上通过Magisk Manager更新Magisk，否则会变砖。\n此外，我不对设备的任何损坏负责。
     </string>
     <string name="executing_script">执行脚本中…</string>
     <string name="please_wait">请稍候…</string>
     <string name="version">版本</string>
     <string name="success">耶！ROOT获取成功，请使用Magisk Manager管理 :)</string>
-    <string name="fail">失败，重试多次不行代表不支持 :(</string>
+    <string name="fail">失败，重试多次仍失败请切换64位开关。</string>
     <string name="accept">接受</string>
     <string name="about_word">读我</string>
     <string name="credits">贡献者</string>
@@ -41,4 +38,5 @@
     <string name="boot_run" >开机自启</string>
     <string name="kocleo_about">此应用的样式重构/功能添加者</string>
     <string name="titleResId">我的 BiliBili 空间</string>
+    <string name="fail_2">还是不行则代表你的设备不支持 :(</string>
 </resources>
