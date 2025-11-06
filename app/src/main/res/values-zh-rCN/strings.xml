@@ -14,7 +14,7 @@
     <string name="please_wait">请稍候…</string>
     <string name="version">版本</string>
     <string name="success">耶！ROOT获取成功，请使用Magisk Manager管理 :)</string>
-    <string name="fail">失败，重试多次仍失败请切换64位开关。</string>
+    <string name="fail">失败，检查64位开关，重试多次还是不行则代表设备本APP :(</string>
     <string name="accept">接受</string>
     <string name="about_word">读我</string>
     <string name="credits">贡献者</string>
@@ -38,5 +38,4 @@
     <string name="boot_run" >开机自启</string>
     <string name="kocleo_about">此应用的样式重构/功能添加者</string>
     <string name="titleResId">我的 BiliBili 空间</string>
-    <string name="fail_2">还是不行则代表你的设备不支持 :(</string>
 </resources>

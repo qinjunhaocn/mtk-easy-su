@@ -173,7 +173,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 }
                 else {
                     getString(R.string.fail).toast(this, true)
-                    getString(R.string.fail_2).toast(this, true)
                 }
             }.execute()
         }

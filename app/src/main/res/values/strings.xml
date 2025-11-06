@@ -22,13 +22,13 @@
     <string name="xda_url" translatable="false">https://forum.xda-developers.com/android/development/amazing-temp-root-mediatek-armv8-t3922213/post82081703#post82081703</string>
     <string name="version">Version</string>
     <string name="success">Superuser permission granted, use Magisk Manager to manage :)</string>
-    <string name="fail">"Failed, retrying won't help - not supported :( "</string>
+    <string name="fail">"Failed. Check 64-bit switch. Still not working? App not supported on device :( "</string>
     <string name="accept">Accept</string>
     <string name="about_word">About</string>
     <string name="credits">Credits</string>
-    <string name="john_wu_about">John Wu\nDeveloper of Magisk</string>
-    <string name="juniojsv_about">JunioJsv\nCreator of this app</string>
-    <string name="mtk_su">Diplomatic\nDeveloper of mtk-su</string>
+    <string name="john_wu_about">John Wu Developer of Magisk</string>
+    <string name="juniojsv_about">JunioJsv Creator of this app</string>
+    <string name="mtk_su">Diplomatic Developer of mtk-su</string>
     <string name="preferences">Preferences</string>
     <string name="log">Log</string>
     <string name="log_null" translatable="false">$</string>
@@ -52,5 +52,4 @@
     <string name="bilibili" translatable="false">BiliBili</string>
     <string name="titleResId">My BiliBili Space</string>
     <string name="bilibili_url" translatable="false">https://b23.tv/9mAd3lU</string>
-    <string name="fail_2">Still not working? Your device isn\'t supported :(</string>
 </resources>
