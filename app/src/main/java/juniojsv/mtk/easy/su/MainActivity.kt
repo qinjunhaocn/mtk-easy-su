@@ -48,8 +48,21 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         binding.mLog.makeScrollableInsideScrollView()
 
-        if (Build.VERSION.SECURITY_PATCH.replace("-", "")
-                .toInt() >= 20200301 && !preferences.getBoolean(PREF_SECURITY_PATCH_IGNORED, false)
+        // ===== 兼容低版本的 SECURITY_PATCH 读取 =====
+        val patchLevel: String = try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Build.VERSION.SECURITY_PATCH
+            } else {
+                Class.forName("android.os.Build\$VERSION")
+                    .getDeclaredField("SECURITY_PATCH").get(null) as? String
+            }
+        } catch (e: Throwable) {
+            "2015-01-01"
+        }
+        // ===== 结束 =====
+
+        if (patchLevel.replace("-", "").toIntOrNull() ?: 0 >= 20200301 &&
+            !preferences.getBoolean(PREF_SECURITY_PATCH_IGNORED, false)
         ) {
             MaterialAlertDialogBuilder(this).run {
                 setTitle(R.string.warning_word)
@@ -144,11 +157,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
             container.addView(imageView)
             container.setPadding(32, 32, 32, 0)
-            
+
             MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.titleResId)
                 .setView(container)
-                .setNegativeButton("Go",{ dialog, which ->
+                .setNegativeButton("Go", { dialog, which ->
                     startActivity(Intent(Intent.ACTION_VIEW).apply {
                         data = getString(R.string.bilibili_url).toUri()
                     })
@@ -159,7 +172,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         // 这里检查ExploitHandler是否正在运行，如果是则禁用按钮
         binding.mButtonTryRoot.isEnabled = !isExploitRunning
-        
+
         binding.mButtonTryRoot.setOnClickListener { button ->
             button.isEnabled = false
             isExploitRunning = true
@@ -170,8 +183,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 isExploitRunning = false
                 if (result.isSuccessful) {
                     getString(R.string.success).toast(this, true)
-                }
-                else {
+                } else {
                     getString(R.string.fail).toast(this, true)
                 }
             }.execute()
@@ -195,5 +207,4 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             null
         }
     }
-
 }
