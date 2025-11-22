@@ -1,6 +1,5 @@
 package juniojsv.mtk.easy.su
 
-private const val PREF_BOOT_RUN = "boot_run"
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -27,6 +26,8 @@ import kotlin.coroutines.CoroutineContext
 
 // 跟踪ExploitHandler是否正在运行
 var isExploitRunning = false
+
+private const val PREF_BOOT_RUN = "boot_run"
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var preferences: SharedPreferences
