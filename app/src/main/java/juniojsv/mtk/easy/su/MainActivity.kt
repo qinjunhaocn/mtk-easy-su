@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -109,14 +110,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 create().apply { setCanceledOnTouchOutside(false) }
             }.show()
 
-        binding.mRunAs64.apply {
-            isChecked = preferences.getBoolean(PREF_RUN_AS_64_BITS, false)
-            setOnCheckedChangeListener { _, isChecked ->
-                preferences.edit(true) {
-                    putBoolean(PREF_RUN_AS_64_BITS, isChecked)
-                }
-            }
-        }
+        binding.mRunAs64.visibility = View.GONE
         binding.mBootRun.apply {
             isChecked = preferences.getBoolean(PREF_BOOT_RUN, false)
             setOnCheckedChangeListener { _, isChecked ->
