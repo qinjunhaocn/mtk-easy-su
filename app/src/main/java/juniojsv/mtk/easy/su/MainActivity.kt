@@ -1,5 +1,6 @@
 package juniojsv.mtk.easy.su
 
+private const val PREF_BOOT_RUN = "boot_run"
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             }
         } catch (e: Throwable) {
             "2015-01-01"
-        }
+        } ?: "2015-01-01"
         // ===== 结束 =====
 
         if (patchLevel.replace("-", "").toIntOrNull() ?: 0 >= 20200301 &&
